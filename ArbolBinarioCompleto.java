@@ -1,15 +1,35 @@
 import colas.Cola;
 import listas.ListaDoblementeLigada;
 
+/**
+ * Clase concreta {@code ArbolBinarioCompleto}
+ * Extiende de la clase {@link ArbolBinario}
+ * 
+ * @author Luis Fernando Quintana López
+ * @author Erick Xavier Martinez Briones
+ * @version 1.0.0
+ * @since 2026
+ * 
+ */
+
 public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
 
+    /** Atributos de la clase ArbolBinarioCompleto */
     private Vertice ultimoAgregado;
 
+    /** Constructor de la clase ArbolBinarioCompleto 
+     * LLama al constructor de la clase ArbolBinario
+     * Inicializa ultimoAgregado como null
+    */
     public ArbolBinarioCompleto() {
         super();
         ultimoAgregado = null;
     }
 
+    /**
+     * Metodo que agrega un elemento de tipo T al arbol binario completo
+     * @param elemento elemento de tipo T a agregar
+     */
     @Override
     public void agregar(T elemento) {
         if (elemento == null) {
@@ -47,6 +67,16 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
         }
     }
 
+    /**
+     * Elimina un elemento del árbol binario completo.
+     * 
+     * La eliminación se realiza sustituyendo el elemento a eliminar
+     * por el último elemento del árbol (según recorrido en amplitud)
+     * y posteriormente eliminando dicho último vértice.
+     *
+     * @param elemento el elemento que se desea eliminar
+     * @throws IllegalArgumentException si el elemento es nulo o el árbol está vacío
+     */
     @Override
     public void eliminar(T elemento) {
         if (elemento == null || this.estaVacio()) {
@@ -96,6 +126,10 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
         this.actualizarUltimoAgregado();
     }
 
+    /**
+    * Metodo que ctualiza la referencia al último vértice agregado
+    * recorriendo el árbol en amplitud.
+    */
     private void actualizarUltimoAgregado() {
         if (this.estaVacio()) {
             this.ultimoAgregado = null;
@@ -121,11 +155,23 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
         this.ultimoAgregado = ultimo;
     }
 
+    /**
+     * Metodo que dado un elemento de tipo T determina si esta o no en el arbol 
+     * @param elemento elemento a buscar
+     * @return {true} si el elementos esta en el arbol, {false} en otro caso
+     */
     @Override
     public boolean buscar(T elemento) {
         return buscar(elemento, this.raiz);
     }
 
+    /**
+     * Busca recursivamente un elemento a partir de un vértice.
+     *
+     * @param elemento el elemento a buscar
+     * @param v el vértice desde donde inicia la búsqueda
+     * @return {true} si el elemento se encuentra, {false} en otro caso
+     */
     private boolean buscar(T elemento, Vertice v) {
         if (v == null) {
             return false;
@@ -137,6 +183,12 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
 
         return buscar(elemento, v.izquierdo) || buscar(elemento, v.derecho);
     }
+
+    /**
+     * Devuelve un recorrido del árbol en amplitud (por niveles).
+     *
+     * @return una ListaDoblementeLigada con los elementos del árbol en recorrido BFS
+     */
 
     @Override
     public ListaDoblementeLigada<T> devolverRecorrido() {
@@ -164,6 +216,13 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
         return recorrido;
     }
 
+    /**
+    * Inserta un nuevo vértice en el primer espacio disponible
+    * siguiendo el camino más a la izquierda desde un vértice dado.
+    *
+    * @param desde el vértice desde donde se inicia la búsqueda
+    * @param nuevo el vértice a insertar
+    */
     private void agregaEnPrimerEspacioIzquierdo(Vertice desde, Vertice nuevo) {
 
         while (desde.izquierdo != null) {

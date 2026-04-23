@@ -10,7 +10,6 @@ import tdas.Coleccion;
  * @author Erick Xavier Martinez Briones
  * @version 1.0.0
  * @since 2026
- * 
  */
 public abstract class ArbolBinario<T> implements Coleccion<T> {
 
