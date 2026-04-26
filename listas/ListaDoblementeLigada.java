@@ -25,7 +25,7 @@ public class ListaDoblementeLigada<T> implements Lista<T> {
      /**
       * Clase privada de un nodo de la lista
       */
-     private class Nodo {
+     public class Nodo {
           /**
            * Elemento almacenado en el nodo
            */
