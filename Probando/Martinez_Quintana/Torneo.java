@@ -63,7 +63,6 @@ public class Torneo{
 				Participante aux = new Participante(nombreParticipante, numMedallas, numTorneos, cinta);
 				g.agregar(aux);
 				i++;
-				
             }
         } catch (IOException e) {
             e.printStackTrace();
