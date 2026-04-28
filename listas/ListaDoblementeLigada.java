@@ -105,12 +105,12 @@ public class ListaDoblementeLigada<T> implements Lista<T> {
      /**
       * Primer nodo de la lista
       */
-     private Nodo cabeza;
+     public Nodo cabeza;
 
      /**
       * Ultimo nodo de la lista
       */
-     private Nodo rabo;
+     public Nodo rabo;
 
      /**
       * Cantidad de nodos que hay en la lista

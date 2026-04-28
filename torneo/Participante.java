@@ -99,6 +99,8 @@ public class Participante implements Comparable<Participante>{
 		cadena = cadena + "Num torneos: " + getNumTorneos() + ", ";
 		cadena = cadena + "Cinta: " + getCinta().getNombre();
 		cadena = cadena + "Nivel numerico: " + getCinta().getNivelNumerico();
+		// quitar esto pls
+		cadena = cadena + "Ind victorias: " + this.indiceDeVictorias();
 		cadena = cadena + "\n";
 
 		return cadena;

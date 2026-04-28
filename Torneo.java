@@ -1,12 +1,26 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import listas.ListaLigadaSimple;
+import listas.ListaDoblementeLigada;
+import ordenamientos.OrdenamientosNoCuadraticos;
 import torneo.AdivinadorResultados;
 import torneo.Cinta;
 import torneo.Participante;
 
+/**
+ * Clase principal la cúal muestra el resultado al usuario
+ * 
+ * @author Erick Xavier Martinez Briones
+ * @author Luis Fernando Quintana López
+ * @version 1.0.0
+ * @since 2026
+ */
+
 public class Torneo{
+	/** 
+	 * Método principal que muestra el árbol binario generado.
+	 * @param args argumentos pasados por la términal al ejecutar
+	*/
     public static void main(String[] args) {
         /* ----------------------------------------------------- */
 		/*     Lectura de archivo y extracción de información    */
@@ -16,7 +30,7 @@ public class Torneo{
 		String nombreArchivo = "participantes.txt";
 
 		/* Variables que almacenarán participantes */
-		ListaLigadaSimple<Participante> g = new ListaLigadaSimple<>(); 
+		ListaDoblementeLigada<Participante> g = new ListaDoblementeLigada<>(); 
 		Participante a = new Participante("", 0, 0, new Cinta(Cinta.NOMBRES_CINTAS[0]));
 
 		/* Variables temporales que se pasarán al constructor de Participante*/
@@ -59,33 +73,43 @@ public class Torneo{
             e.printStackTrace();
         }
 
-		/* JUsto ahora g contiene a los participantes */
-		/* Ahora necesito ordenarlos, para lo cual deben tener un método compareTo */
 
-		System.out.println(g.toString());
-
+		/* Ordenando participantes */
 		OrdenamientosNoCuadraticos.mergeSort(g);
+		g = g.reversa();
 
-		System.out.println(g.toString());
+		/* Calculando la altura del árbol */
+		int cantidadDeElementos = g.devolverLongitud();
+		int altura = 0;
+		int hojasPosibles = 1;
 
-
-        // Neceisto leer los participantes. Mientras los leo meterlos a alguna estructura
-        // (me parece que lista), les aplico un algoritmo de ordenamiento. 
-
-        // Cuento los bichos leidos. 
-
-        // Calculo la altura para que todos los bichos queden en las hojas
-
-        // calculo la cantidad de elementos de un arbol con un nivel menos que el resultante
-
-        // meto la palabra "pendiente" tantas veces como diga el calculo anterior
-
-        // LUego meto todos los bichos leidos del txt. 
-
-        // Quería meter null en los espacios restantes, pero en realidad es un arbol completo
-        // no perfecto, así que supongo lo puedo dejar sin nodos. 
+		while(hojasPosibles < cantidadDeElementos){
+			if (hojasPosibles < cantidadDeElementos) {
+				altura = altura+1;
+				hojasPosibles = (int) Math.pow(2, altura);
+			} 
+		}
 
 
+		// Calculando elementos pendientes
+		int numPendientes = 0;
+		for (int i = 0; i < altura; i++) {
+			numPendientes = (int) Math.floor(numPendientes + Math.pow(2, i));
+		}
+
+		// Creando arbol con elementos por defecto
+		ArbolBinarioCompleto<String> arbol = new ArbolBinarioCompleto<>(); 
+		for (int i = 0; i < numPendientes; i++) {
+			arbol.agregar("pendiente");
+		}
+
+		// Agregando los participantes
+		for (Participante part : g) {
+			arbol.agregar(part.getNombre());
+		}
+
+		// Mostrando árbol
+		System.out.println(arbol.toString());		
 
     }
 }

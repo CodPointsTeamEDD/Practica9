@@ -81,6 +81,17 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
             if (hijo != null)
                 hijo.padre = this;
         }
+        public String toString(){
+            String cadena = AsciiBox.addAccents(elemento.toString());
+            cadena = AsciiBox.asciiBox(cadena, false, AsciiBox.length(cadena));
+            int type = 2;
+            if(izquierdo == null && derecho == null){
+                type = 3;
+            } else if(padre == null){
+                type = 1;
+            }
+            return AsciiBox.nodify(cadena,type);
+        }  
     }
 
     /** atributos de la clase ArbolBinario */
@@ -155,5 +166,31 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
     @Override
     public Iterator<T> iterator() {
         return devolverRecorrido().iterator();
+    }
+        /**
+     * Método que convierte un árbol a su representación en ascii art
+     * @param root Vértice raíz del árbol.
+     * @return Cadena con la representación en ascii art de un árbol n-ario
+     */
+    public String asciiTree(Vertice root){
+        if(root.izquierdo == null && root.derecho == null){
+            return root.toString();
+        } else {
+            String concatVertex = "";
+            String cadenaIzquierda = root.izquierdo != null ? asciiTree(root.izquierdo) : "";
+            String cadenaDerecha = root.derecho != null ? asciiTree(root.derecho) : "";
+            concatVertex = AsciiBox.concatAscii(cadenaIzquierda,cadenaDerecha,1,true);
+            return AsciiBox.treeConcat(root.toString(),AsciiBox.addTreeEdge(concatVertex));
+        }
+    }     
+
+    public String toString(){
+        if(estaVacio()){
+            return "No hay árbol";
+        } else if(raiz.izquierdo == null && raiz.derecho == null) {
+            return AsciiBox.asciiBox(raiz.elemento,false,AsciiBox.length(raiz.elemento.toString()));
+        } else {
+            return asciiTree(raiz);
+        }
     }
 }
